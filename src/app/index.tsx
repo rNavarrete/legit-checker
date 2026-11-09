@@ -26,7 +26,13 @@ const STEPS = [
 
 export default function HomeScreen() {
   return (
-    <Screen footer={<Button title="Start a legit check" onPress={() => router.push('/submit')} />}>
+    <Screen
+      footer={
+        <View style={styles.actions}>
+          <Button title="Start a legit check" onPress={() => router.push('/submit')} />
+          <Button title="Verify sneakers" variant="secondary" onPress={() => router.push('/verify')} />
+        </View>
+      }>
       <View style={styles.hero}>
         <ThemedText type="subtitle">Free legit checks, from people who know sneakers.</ThemedText>
         <ThemedText themeColor="textSecondary">
@@ -59,6 +65,7 @@ export default function HomeScreen() {
 }
 
 const styles = StyleSheet.create({
+  actions: { gap: Spacing.two },
   hero: { gap: Spacing.two, marginBottom: Spacing.two },
   step: { padding: Spacing.three, borderRadius: Spacing.three, gap: Spacing.one },
   stepTitle: { fontSize: 17 },

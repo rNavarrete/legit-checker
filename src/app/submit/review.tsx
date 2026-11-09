@@ -26,7 +26,7 @@ export default function ReviewScreen() {
       const id = await submitDraft(draft, (done, total) => setProgress({ done, total }));
       reset();
       router.dismissAll();
-      router.replace({ pathname: '/submit/done', params: { id } });
+      router.push({ pathname: '/submit/done', params: { id } });
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Something went wrong. Try again.');
       setProgress(null);
