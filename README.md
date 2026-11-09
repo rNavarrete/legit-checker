@@ -14,7 +14,13 @@ web. The backend is Supabase (Postgres, auth and photo storage).
   (front, back, outer side, inner side, sole, inside tag, size tag, insole
   removed, box label), then review and submit. There's no gallery upload on
   purpose: live photos can't be lifted from a listing.
-- **Data model** (`supabase/migrations/0001_initial_schema.sql`) for the whole
+- **Verifier flow** (`src/app/verify/`): the app hands you one check at a
+  time (you can't pick which). You look through the nine photos, tag flaws by
+  picking a flaw type and tapping the spot on the photo, then make your call:
+  authentic, replica or can't tell, how sure you are, and a written review.
+  You never see other verifiers' calls while voting. You can skip a pair you
+  don't know, and it won't come back to you.
+- **Data model** (`supabase/migrations/`) for the whole
   loop, not just submissions:
   - `submissions`, `submission_photos`: one row per required photo slot.
   - `verification_assignments`, `verifications`: blind, assigned voting.
@@ -35,8 +41,8 @@ web. The backend is Supabase (Postgres, auth and photo storage).
   - `verifier_specialties`, `badges`: brand specialties for routing (never
     restrictions) and badges for gamification.
 
-Not built yet: the verifier screens, results screen, profiles and
-leaderboards. The schema already supports them.
+Not built yet: the results screen (consensus plus every review), outcome
+reporting, profiles and leaderboards. The schema already supports them.
 
 ## Run it
 
@@ -52,7 +58,7 @@ final submit is disabled. The camera needs a real device (or a webcam on web).
 ## Set up Supabase
 
 1. Create a project at [supabase.com](https://supabase.com).
-2. Run `supabase/migrations/0001_initial_schema.sql` in the SQL editor, or
+2. Run the files in `supabase/migrations/` in order in the SQL editor, or
    use the Supabase CLI: `supabase link` then `supabase db push`.
 3. Turn on **Authentication > Sign In / Providers > Anonymous sign-ins**. The
    app signs people in anonymously so there's no account wall before the
